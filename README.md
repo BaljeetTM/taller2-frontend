@@ -52,6 +52,8 @@ http://localhost:3000
 
 Echale un vistazo al repositorio de Vercel [the Next.js GitHub repository](https://github.com/vercel/next.js) - tu feedback u contribuciones son bienvenidas
 
+¡Visita el [Mockup](https://www.figma.com/design/2mrE4nuAyEUQwZ8iQOQdsk/Untitled?node-id=0-1&t=NjYLHHBxPk2ehEzQ-1) de este proyecto!
+
 ## Integrantes:
 - Germán Morales 21.156.950-6 german.morales01@alumnos.ucn.cl
 - Nicolas Tapia 21.021.201-9 nicolas.tapia08@alumnos.ucn.cl
