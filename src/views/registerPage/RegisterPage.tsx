@@ -18,23 +18,32 @@ import { ResponseAPI } from "@/interfaces/ResponseAPI";
 import { useState } from "react";
 import Link from "next/link";
 
-const formSchema = z.object({
-  fullName: z.string().min(3, {
-    message: "El nombre completo debe tener al menos 3 caracteres.",
-  }),
-  email: z.string().email({
-    message: "Ingrese un correo electrónico válido.",
-  }),
-  password: z.string().min(6, {
-    message: "La contraseña debe tener al menos 6 caracteres.",
-  }),
-  confirmPassword: z.string().min(6, {
-    message: "La confirmación de contraseña debe tener al menos 6 caracteres.",
-  }),
-}).refine((data) => data.password === data.confirmPassword, {
-  path: ["confirmPassword"],
-  message: "Las contraseñas no coinciden.",
-});
+const formSchema = z
+  .object({
+    fullName: z.string().min(3, {
+      message: "El nombre completo debe tener al menos 3 caracteres.",
+    }),
+    email: z.string().email({
+      message: "Ingrese un correo electrónico válido.",
+    }),
+    password: z.string().min(6, {
+      message: "La contraseña debe tener al menos 6 caracteres.",
+    }),
+    confirmPassword: z.string().min(6, {
+      message:
+        "La confirmación de contraseña debe tener al menos 6 caracteres.",
+    }),
+    dateOfBirth: z.string().regex(/\d{4}-\d{2}-\d{2}/, {
+      message: "La fecha debe estar en formato DD-MM-YYYY.",
+    }),
+    phoneNumber: z.string().min(10, {
+      message: "El número de teléfono debe tener al menos 10 dígitos.",
+    }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    path: ["confirmPassword"],
+    message: "Las contraseñas no coinciden.",
+  });
 
 export const RegisterPage = () => {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -44,6 +53,8 @@ export const RegisterPage = () => {
       email: "",
       password: "",
       confirmPassword: "",
+      dateOfBirth: "",
+      phoneNumber: "",
     },
   });
   const [errors, setErrors] = useState<string | null>(null);
@@ -52,7 +63,10 @@ export const RegisterPage = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       console.log("Valores enviados de formulario:", values);
-      const { data } = await ApiBackend.post<ResponseAPI>("Auth/register", values);
+      const { data } = await ApiBackend.post<ResponseAPI>(
+        "Auth/register",
+        values
+      );
       if (!data.success) {
         console.error("Error en la respuesta del servidor:", data.message);
         setErrors("Error en la respuesta del servidor:");
@@ -90,7 +104,7 @@ export const RegisterPage = () => {
             Crear una cuenta
           </h2>
           <p className="mb-4 text-sm text-gray-600 text-center md:text-left">
-            ¿Ya tienes una cuenta? {" "}
+            ¿Ya tienes una cuenta?{" "}
             <Link href="/login" className="text-blue-700 underline">
               Inicia sesión aquí
             </Link>
@@ -128,12 +142,43 @@ export const RegisterPage = () => {
 
               <FormField
                 control={form.control}
+                name="dateOfBirth"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Fecha de nacimiento</FormLabel>
+                    <FormControl>
+                      <Input type="date" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="phoneNumber"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Número de teléfono</FormLabel>
+                    <FormControl>
+                      <Input type="tel" placeholder="+56912345678" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
                 name="password"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Contraseña</FormLabel>
                     <FormControl>
-                      <Input type="password" placeholder="••••••••" {...field} />
+                      <Input
+                        type="password"
+                        placeholder="••••••••"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -147,7 +192,11 @@ export const RegisterPage = () => {
                   <FormItem>
                     <FormLabel>Confirmar contraseña</FormLabel>
                     <FormControl>
-                      <Input type="password" placeholder="••••••••" {...field} />
+                      <Input
+                        type="password"
+                        placeholder="••••••••"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -155,7 +204,9 @@ export const RegisterPage = () => {
               />
 
               {errors && (
-                <div className="text-red-500 text-sm mt-2 p-2 bg-red-100 rounded">{errors}</div>
+                <div className="text-red-500 text-sm mt-2 p-2 bg-red-100 rounded">
+                  {errors}
+                </div>
               )}
 
               {success && (
@@ -169,7 +220,7 @@ export const RegisterPage = () => {
           </Form>
 
           <div className="mt-4 text-sm text-center md:text-left">
-            ¿Olvidaste tu contraseña? {" "}
+            ¿Olvidaste tu contraseña?{" "}
             <a href="#" className="text-blue-700 underline">
               Haz click aquí
             </a>
