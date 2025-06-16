@@ -55,11 +55,17 @@ export const LoginPage = () => {
       const data_ = data.data as ResponseAPI;
       const user_: User = {
         id: data_.data.id,
-        username: data_.data.username,
+        fullName: data_.data.fullName,
+        lastName: data_.data.lastName,
         email: data_.data.email,
-        password: data_.data.password,
+        phoneNumber: data_.data.phoneNumber,
+        roleName: data_.data.roleName,
+        addresses: data_.data.addresses,
+        dateOfBirth: data_.data.dateOfBirth,
+        registrationDate: data_.data.registrationDate,
+        isActive: data_.data.isActive,
         token: data_.data.token,
-        role: data_.data.role,
+        
       };
 
       console.log("Datos del usuario:", user_);
