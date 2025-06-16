@@ -48,9 +48,9 @@ http://localhost:3000
 ```
 
 - [Next.js Documentation](https://nextjs.org/docs) - conoce acerca Next.js.
-- [Learn Next.js](https://nextjs.org/learn) - un tutorial de Next.js interactivo.
+- [Learn Next.js](https://nextjs.org/learn) - un tutorial de Next.js.
 
-Echale un vistazo al repositorio de Vercel [the Next.js GitHub repository](https://github.com/vercel/next.js) - tu feedback u contribuciones son bienvenidas
+Echale un vistazo al repositorio de Vercel [the Next.js GitHub repository](https://github.com/vercel/next.js)
 
 ¡Visita el [Mockup](https://www.figma.com/design/2mrE4nuAyEUQwZ8iQOQdsk/Untitled?node-id=0-1&t=NjYLHHBxPk2ehEzQ-1) de este proyecto!
 
