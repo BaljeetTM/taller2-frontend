@@ -20,6 +20,7 @@ import { useContext, useState } from "react";
 import { set } from "zod/v4-mini";
 import { AuthContext } from "@/contexts/auth/AuthContext";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -41,48 +42,81 @@ export const LoginPage = () => {
   const [errors, setErrors] = useState<string | null>(null);
   const [errorBool, setErrorBool] = useState<boolean>(false);
   const { auth } = useContext(AuthContext);
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      console.log("Valores enviados de formulario:", values);
-      const { data } = await ApiBackend.post<ResponseAPI>("Auth/login", values);
-      if(data.success === false){
-          console.error("Error al enviar el formulario:", data.message);
-          setErrors("Error en la respuesta del servidor:");
-          setErrorBool(true);
-          return;
-      }
-      setErrors(null);
-      setErrorBool(false);
-      const data_ = data.data as ResponseAPI;
-      const user_: User = {
-        id: data_.data.id,
-        fullName: data_.data.fullName,
-        lastName: data_.data.lastName,
-        email: data_.data.email,
-        phoneNumber: data_.data.phoneNumber,
-        roleName: data_.data.roleName,
-        addresses: data_.data.addresses,
-        dateOfBirth: data_.data.dateOfBirth,
-        registrationDate: data_.data.registrationDate,
-        isActive: data_.data.isActive,
-        token: data_.data.token,
+  const router = useRouter();
+  // const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  //   try {
+  //     console.log("Valores enviados de formulario:", values);
+  //     const { data } = await ApiBackend.post<ResponseAPI>("Auth/login", values);
+  //     if(data.success === false){
+  //         console.error("Error al enviar el formulario:", data.message);
+  //         setErrors("Error en la respuesta del servidor:");
+  //         setErrorBool(true);
+  //         return;
+  //     }
+  //     setErrors(null);
+  //     setErrorBool(false);
+  //     const data_ = data.data as ResponseAPI;
+  //     const user_: User = {
+  //       id: data_.data.id,
+  //       fullName: data_.data.fullName,
+  //       lastName: data_.data.lastName,
+  //       email: data_.data.email,
+  //       phoneNumber: data_.data.phoneNumber,
+  //       roleName: data_.data.roleName,
+  //       addresses: data_.data.addresses,
+  //       dateOfBirth: data_.data.dateOfBirth,
+  //       registrationDate: data_.data.registrationDate,
+  //       isActive: data_.data.isActive,
+  //       token: data_.data.token,
         
-      };
+  //     };
 
-      console.log("Datos del usuario:", user_);
-      auth(user_);
-      
+  //     console.log("Datos del usuario:", user_);
+  //     auth(user_);
 
+  //   } catch (error: any) {
+  //     console.error("Error al enviar el formulario:", error);
+  //     // setErrors(error);
+  //     // setErrorBool(true);
+  //   }
 
-    } catch (error: any) {
-      let errorCatch = error.response.data.message;
-      console.error("Error al enviar el formulario:", errorCatch);
-      setErrors(errorCatch);
-      setErrorBool(true);
-    }
-
+  //   console.log("Valores enviados de formulario:", values);
+  // };
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  try {
     console.log("Valores enviados de formulario:", values);
-  };
+
+    // Simulación de datos del usuario autenticado
+    const user_: User = {
+      id: 2, // ID ficticio
+      fullName: "Ernes",
+      lastName: "Fuenzalida",
+      email: "ernitoph@example.com",
+      phoneNumber: "+56912345678",
+      roleName: "Cliente",
+      addresses: [],
+      // dateOfBirth: "0001-01-01T00:00:00",
+      // registrationDate: "2025-06-26T22:26:59.4595226-04:00",
+      isActive: false,
+      token: "fake-jwt-token", // Token ficticio para simular autenticación
+    };
+
+    console.log("Datos del usuario:", user_);
+    auth(user_); // Autenticación directa con los datos harcodeados
+    router.push("/");
+    // Manejo de errores desactivado porque no hay llamada real al backend
+    setErrors(null);
+    setErrorBool(false);
+  } catch (error: any) {
+    console.error("Error al enviar el formulario:", error);
+    // Manejo opcional de errores (aunque no se espera que ocurra aquí)
+    setErrors("Error simulado al procesar los datos");
+    setErrorBool(true);
+  }
+
+  console.log("Valores enviados de formulario:", values);
+};
+
   return (
     <div className="flex flex-col md:flex-row h-screen">
       {/* Lado izquierdo */}
