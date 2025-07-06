@@ -6,8 +6,8 @@ export interface User {
     phoneNumber:      string;
     roleName:         string;//Rolename
     addresses:        any[];
-    dateOfBirth:      Date;
-    registrationDate: Date;
+    dateOfBirth?:      Date;
+    registrationDate?: Date;
     isActive:         boolean;
     token:            string;
 }
