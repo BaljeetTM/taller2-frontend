@@ -1,6 +1,5 @@
-import { TablePage } from "@/views/client/tablePage/TablePagee";
-
+import ViewProductsPage from "@/views/products/ViewProductsPage";
 
 export default function ClientPage(){
-    return <TablePage/>
+    return <ViewProductsPage/>
 }
