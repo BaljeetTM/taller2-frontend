@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
+import { decode } from "punycode";
 
 export default function UserLayout({ children }: { children: React.ReactNode }) {
   const { user, status } = useAuth();
@@ -16,6 +17,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
       return;
     }
 
+    const payload = decode(user.token);
     if (!user || user.roleName !== "Cliente") {
       router.replace("/");
     }
