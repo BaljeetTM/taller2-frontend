@@ -5,7 +5,8 @@ import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function AdminLayout({children} : {children: React.ReactNode}) {
+
+export default function ClientLayout({children}: {children: React.ReactNode}) {
     const {user, status} = useAuth();
     const router = useRouter();
 
@@ -14,20 +15,22 @@ export default function AdminLayout({children} : {children: React.ReactNode}) {
             router.replace('/login');
             return;
         }
-        const payload = decodeJWT(user.token);
-        if (!payload || payload.role !== 'Admin') {
+
+        const payload = decodeJWT (user.token);
+        if (!payload || payload.role !== 'User') {
             router.replace('/');
             return;
         }
 
     }, [user, status, router]);
 
+    if (status === 'checking' || !user) return <div>Cargando...</div>;
+
     return (
-        <div>
-            <h1>Admin panel</h1>
+        <html lang ="en">
             <main>
                 {children}
-            </main>
-        </div>
+            </main>                
+        </html>
     )
 }
