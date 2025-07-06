@@ -25,6 +25,7 @@ const formSchema = z
     }),
     lastName: z.string().min(3, {
       message: "El apellido debe tener al menos 3 caracteres.",
+
     }),
     email: z.string().email({
       message: "Ingrese un correo electrónico válido.",
@@ -203,7 +204,6 @@ export const RegisterPage = () => {
                   </FormItem>
                 )}
               />
-
               {/* Contraseña */}
               <FormField
                 control={form.control}
