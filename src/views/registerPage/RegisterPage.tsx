@@ -20,21 +20,25 @@ import Link from "next/link";
 
 const formSchema = z
   .object({
-    fullName: z.string().min(3, {
-      message: "El nombre completo debe tener al menos 3 caracteres.",
+    firstName: z.string().min(3, {
+      message: "El nombre debe tener al menos 3 caracteres.",
+    }),
+    lastName: z.string().min(3, {
+      message: "El apellido debe tener al menos 3 caracteres.",
+
     }),
     email: z.string().email({
       message: "Ingrese un correo electrónico válido.",
     }),
-    password: z.string().min(6, {
-      message: "La contraseña debe tener al menos 6 caracteres.",
+    password: z.string().min(8, {
+      message: "La contraseña debe tener al menos 8 caracteres.",
     }),
-    confirmPassword: z.string().min(6, {
+    confirmPassword: z.string().min(8, {
       message:
-        "La confirmación de contraseña debe tener al menos 6 caracteres.",
+        "La confirmación de contraseña debe tener al menos 8 caracteres.",
     }),
     dateOfBirth: z.string().regex(/\d{4}-\d{2}-\d{2}/, {
-      message: "La fecha debe estar en formato DD-MM-YYYY.",
+      message: "La fecha debe estar en formato YYYY-MM-DD.",
     }),
     phoneNumber: z.string().min(10, {
       message: "El número de teléfono debe tener al menos 10 dígitos.",
@@ -49,7 +53,8 @@ export const RegisterPage = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      fullName: "",
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -63,13 +68,25 @@ export const RegisterPage = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       console.log("Valores enviados de formulario:", values);
+
+      const newUser = {
+        firtsName: values.firstName, // coincide con el backend (typo incluido)
+        lastName: values.lastName,
+        email: values.email,
+        thelephone: values.phoneNumber, // coincide con el backend (typo incluido)
+        password: values.password,
+        confirmPassword: values.confirmPassword,
+        birthDate: values.dateOfBirth, // formato ISO: YYYY-MM-DD
+      };
+
       const { data } = await ApiBackend.post<ResponseAPI>(
         "Auth/register",
-        values
+        newUser
       );
+
       if (!data.success) {
         console.error("Error en la respuesta del servidor:", data.message);
-        setErrors("Error en la respuesta del servidor:");
+        setErrors(data.message || "Error en la respuesta del servidor.");
         setSuccess(false);
         return;
       }
@@ -78,8 +95,9 @@ export const RegisterPage = () => {
       setSuccess(true);
       console.log("Registro exitoso:", data);
     } catch (error: any) {
-      let errorCatch = error.response?.data?.message || "Error desconocido.";
-      console.error("Error al enviar el formulario:", errorCatch);
+      let errorCatch =
+        error.response?.data?.message || "Error desconocido al registrar.";
+      console.error("Error al enviar el formulario:", error);
       setErrors(errorCatch);
       setSuccess(false);
     }
@@ -112,20 +130,37 @@ export const RegisterPage = () => {
 
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              {/* Nombre */}
               <FormField
                 control={form.control}
-                name="fullName"
+                name="firstName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Nombre completo</FormLabel>
+                    <FormLabel>Nombre</FormLabel>
                     <FormControl>
-                      <Input placeholder="Juan Pérez" {...field} />
+                      <Input placeholder="Juan" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
+              {/* Apellido */}
+              <FormField
+                control={form.control}
+                name="lastName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Apellido</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Pérez" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Correo */}
               <FormField
                 control={form.control}
                 name="email"
@@ -140,6 +175,7 @@ export const RegisterPage = () => {
                 )}
               />
 
+              {/* Fecha de nacimiento */}
               <FormField
                 control={form.control}
                 name="dateOfBirth"
@@ -154,6 +190,7 @@ export const RegisterPage = () => {
                 )}
               />
 
+              {/* Teléfono */}
               <FormField
                 control={form.control}
                 name="phoneNumber"
@@ -167,6 +204,7 @@ export const RegisterPage = () => {
                   </FormItem>
                 )}
               />
+              {/* Contraseña */}
               <FormField
                 control={form.control}
                 name="password"
@@ -185,6 +223,7 @@ export const RegisterPage = () => {
                 )}
               />
 
+              {/* Confirmar contraseña */}
               <FormField
                 control={form.control}
                 name="confirmPassword"
@@ -203,12 +242,14 @@ export const RegisterPage = () => {
                 )}
               />
 
+              {/* Errores */}
               {errors && (
                 <div className="text-red-500 text-sm mt-2 p-2 bg-red-100 rounded">
                   {errors}
                 </div>
               )}
 
+              {/* Éxito */}
               {success && (
                 <div className="text-green-500 text-sm mt-2 p-2 bg-green-100 rounded">
                   Registro exitoso. Ahora puedes iniciar sesión.

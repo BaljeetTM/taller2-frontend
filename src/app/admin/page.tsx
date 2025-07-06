@@ -1,3 +1,5 @@
+import { TablePage } from "@/views/client/tablePage/TablePage";
+
 export default function Admin() {
-    return <h1>Admin</h1>
+    return <TablePage/>
 }

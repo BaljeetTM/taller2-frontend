@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Proyecto Next.js
 
-## Getting Started
+Este proyecto es una aplicación desarrollada con [Next.js](https://nextjs.org/). A continuación, se detallan los pasos necesarios para clonar, instalar y ejecutar el proyecto en tu máquina local.
 
-First, run the development server:
+---
+
+## Requisitos previos
+
+Asegúrate de tener instalados los siguientes programas:
+
+- [Node.js](https://nodejs.org/) (versión 16 o superior)
+- [Git](https://git-scm.com/) para clonar el repositorio
+
+Verifica las versiones instaladas con los siguientes comandos:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+node -v
+npm -v
+git --version
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Pasos para ejecutar el proyecto
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 1.- Clona el proyecto
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+git clone https://github.com/BaljeetTM/taller2-frontend.git
+```
 
-## Learn More
+## 2.- Entra en el directorio del proyecto
+```bash
+cd .\taller2-frontend\
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 3.- Instala las dependencias
+```bash
+npm i
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 4.- Inicia el servidor de desarrollo
+```bash
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 5.- Abre la aplicación en el navegador
+```bash
+http://localhost:3000
+```
 
-## Deploy on Vercel
+- [Next.js Documentation](https://nextjs.org/docs) - conoce acerca Next.js.
+- [Learn Next.js](https://nextjs.org/learn) - un tutorial de Next.js.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Echale un vistazo al repositorio de Vercel [the Next.js GitHub repository](https://github.com/vercel/next.js)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+¡Visita el [Mockup](https://www.figma.com/design/2mrE4nuAyEUQwZ8iQOQdsk/Untitled?node-id=0-1&t=NjYLHHBxPk2ehEzQ-1) de este proyecto!
+
+## Integrantes:
+- Germán Morales 21.156.950-6 german.morales01@alumnos.ucn.cl
+- Nicolas Tapia 21.021.201-9 nicolas.tapia08@alumnos.ucn.cl
