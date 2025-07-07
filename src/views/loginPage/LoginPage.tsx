@@ -109,7 +109,7 @@ export const LoginPage = () => {
                     </h3>
                     <p className="mb-4 text-sm text-gray-600 text-center md:text-left">
                         ¿No tienes cuenta?{' '}
-                        <a href="#" className="text-blue-600 underline">
+                        <a href="/register" className="text-blue-600 underline">
                             registrate aquí
                         </a>
                     </p>

@@ -29,6 +29,14 @@ export const ProductServices = {
         }
 
         return data.data as Product[];
+    },
+
+    async updateStatus(id: number) {
+        try {
+            await ApiBackend.delete(`product/${id}`);
+        } catch (error) {
+            console.error("Error al cambiar el estado del producto:", error);
+        }
     }
 
 }

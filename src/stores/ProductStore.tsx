@@ -12,6 +12,7 @@ interface ProductState {
     filters: ProductFilters;
     fetchProducts: () => Promise<void>;
     setFilters: (filters: Partial<ProductFilters>) => void;
+    deleteProduct: (id: number) => Promise<void>;
 
 }
 
@@ -31,6 +32,13 @@ export const useProductStore = create<ProductState>((set, get) => ({
             set({ products: data, loading: false});
         }catch (error: any) {
             set({loading: false, error: error.message || "Error al obtener los productos"});
+        }
+    },
+    deleteProduct: async (id: number) => {
+        try {
+            await ProductServices.updateStatus(id);
+        } catch (error) {
+            console.error("Error al eliminar el producto:", error);
         }
     },
     setFilters: (newFilters) =>
