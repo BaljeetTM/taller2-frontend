@@ -215,6 +215,7 @@ export const RegisterPage = () => {
                       <Input
                         type="password"
                         placeholder="••••••••"
+
                         {...field}
                       />
                     </FormControl>
