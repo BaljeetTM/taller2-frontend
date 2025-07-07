@@ -10,6 +10,8 @@ Asegúrate de tener instalados los siguientes programas:
 
 - [Node.js](https://nodejs.org/) (versión 16 o superior)
 - [Git](https://git-scm.com/) para clonar el repositorio
+- [.NET 9 SDK](https://dotnet.microsoft.com/en-us/download)
+- [SQLite](https://www.sqlite.org/download.html)
 
 Verifica las versiones instaladas con los siguientes comandos:
 
@@ -46,6 +48,42 @@ npm run dev
 ```bash
 http://localhost:3000
 ```
+
+#Pasos para trabajar con el Backend
+
+## 1.- Clonar el repositorio y acceder al pryecto:
+```bash
+git clone https://github.com/FernandoChav/AyudantiaWebMovil.git
+cd Ayudantia
+```
+
+## 2.- Editar appsettings.Development.json y agregar metodo PATCH:
+```bash
+"AllowedMethods": [
+    "GET",
+    "POST",
+    "PUT",
+    "DELETE",
+    "PATCH"
+  ]
+```
+
+## 3.- Restaurar dependencias:
+```bash
+dotnet restore
+```
+
+## 4.- Crear aplicar migraciones:
+```bash
+dotnet ef database update
+```
+
+## 5.- Ejecutar la aplicación
+```bash
+dotnet run
+```
+
+---
 
 - [Next.js Documentation](https://nextjs.org/docs) - conoce acerca Next.js.
 - [Learn Next.js](https://nextjs.org/learn) - un tutorial de Next.js.
