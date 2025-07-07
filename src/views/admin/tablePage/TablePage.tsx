@@ -149,7 +149,7 @@ export const TablePage = () => {
             Gestión de Usuarios
           </Button>
           <Button
-            onClick={() => router.push("/viewProductsPage")}
+            onClick={() => router.push("/")}
             className="bg-gray-700 text-white hover:bg-gray-800"
           >
             Volver
