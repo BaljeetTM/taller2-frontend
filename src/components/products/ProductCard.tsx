@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { useState } from "react";
 import { LoginDialog } from "./LoginDialog";
+import { useCartStore } from "@/stores/CartStore";
 
 
 interface ProductCardProps {
@@ -12,7 +13,7 @@ interface ProductCardProps {
 }
 
 export const ProductCard = ({ product, onClick }: ProductCardProps) => {
-    // const { addToCart } = useCartStore();
+    const { addToCart } = useCartStore();
     
     const {user} = useAuth();
     const [showDialog, setShowDialog] = useState(false);
@@ -22,7 +23,7 @@ export const ProductCard = ({ product, onClick }: ProductCardProps) => {
             setShowDialog(true);
             return;
         }
-        // addToCart(product.id, 1);
+        addToCart(product.id, 1);
         alert("Producto agregado al carrito.");
     }
 
