@@ -1,4 +1,4 @@
-import { TablePage } from "@/views/client/tablePage/TablePage";
+import { TablePage } from "@/views/admin/tablePage/TablePage";
 
 export default function Admin() {
     return <TablePage/>
